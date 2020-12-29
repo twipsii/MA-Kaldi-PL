@@ -12,15 +12,15 @@ The Kaldi (version 5.5) recipe egs/wsj/s5 (commit 8cc5c8b32a49f8d963702c6be681dc
 
 **Data preparation and AM training**
 
-`run.sh`: 
+- `run.sh`: 
 
 **Decoding and evaluation**
 
 Based on the AM used for the decoding, a different file needs to be used.
 
-`compile_decode_gmm.sh`:
-`compile_decode_nnet.sh`:
-`uzh/decode_tdnn.sh`:
+- `compile_decode_gmm.sh`:
+- `compile_decode_nnet.sh`:
+- `uzh/decode_tdnn.sh`:
 
 ## Configuration
 
