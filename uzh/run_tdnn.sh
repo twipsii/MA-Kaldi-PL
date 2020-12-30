@@ -88,9 +88,8 @@ echo "$0 $@"  # Print the command line for logging
 ###################
 train_data_dir=$1
 lang_dir=$2
-dev_set=$3
-gmm_dir=$4
-output_dir=$5
+gmm_dir=$3
+output_dir=$4
 
 train_set=$train_data_dir
 # gmm = $gmm_dir
@@ -104,7 +103,6 @@ echo "*** Parameters: uzh/run_tdnn.sh ***"
 echo
 echo "Train data (initial data): ${train_set}"
 echo "Lang path: ${lang_dir}"
-echo "Set to decode: ${dev_set}"
 echo "GMM path: ${gmm_dir}"
 echo "Output path: ${output_dir}"
 echo
@@ -139,7 +137,6 @@ fi
 uzh/run_ivector_common.sh \
   --stage $stage --nj $nj \
   --train-set $train_set \
-  --test-sets $dev_set \
   --gmm_scr $gmm_dir \
   --online-cmvn-iextractor $online_cmvn \
   --num-threads-ubm $num_threads_ubm \
@@ -148,8 +145,7 @@ uzh/run_ivector_common.sh \
   --num-threads-extractor $num_threads_extractor \
   --nnet3-affix "$nnet3_affix" \
   --lang $lang_dir \
-  --output-dir $output_dir \
-  --data-affix $data_affix
+  --output-dir $output_dir
 
 exp=$output_dir/exp
 data=$output_dir/data

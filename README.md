@@ -84,7 +84,7 @@ The file `run.sh` contains a number of options that can be controlled. This incl
 - `do_data_preparation=1`
 - `do_feature_extraction=1`
 
-These options are followed by the AM type that you want to train. The four GMM based models (monophone, triphone, triphone_lda and triphone_mmi) are built on top of each other and need to be executed consecutively. Also, the NN based models (nnet and nnet_discriminative) and the TDNN model (tdnn) need to be built on top of a previous model (preferably triphone_mmi).
+These options are followed by the AM type that you want to train. The four GMM based models (monophone, triphone, triphone_lda and triphone_mmi) are built on top of each other and need to be executed consecutively. Also, the NN based models (nnet and nnet_discriminative) and the TDNN model (tdnn) need to be trained on top of the alignments of a previous model (preferably triphone_mmi).
 
 - `do_train_monophone=1`
 - `do_train_triphone=1`
@@ -92,23 +92,7 @@ These options are followed by the AM type that you want to train. The four GMM b
 - `do_train_mmi=1`
 - `do_nnet2=1`
 - `do_nnet2_discriminative=1`
-- `do_train_tdnn=0`
-
-Training the TDNN model needs the lang folder of a decoded set as an additional argument to extract the iVectors from.
-
-```
-run.sh <archimob_input_csv> <archimob_wav_files_directory> <am_output_directory> <transcription_type> <pronunciation_lexicon> <lang_directory_decoded_set>
-```
-
-```
-nohup ./run.sh \
-      data/splits/train.csv \
-      data/archimob_r2/chunked_wav_files \
-      output_dir_model \
-      "norm" \
-      data/lexicon/lexicon_zh_extended.txt \
-      output_dir_model/eval/tri_mmi/dev/lang
-```
+- `do_train_tdnn=1`
 
 ## Decoding and evaluating a new set
 

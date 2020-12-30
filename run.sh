@@ -428,7 +428,6 @@ if [[ $do_train_tdnn -ne 0 ]]; then
 
     uzh/run_tdnn.sh $initial_data/data \
                     $data/lang \
-                    $dev_data \
                     $models/tri_mmi/ali \
                     $models/ivector
 

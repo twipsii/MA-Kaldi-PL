@@ -10,8 +10,6 @@ set -e -o pipefail
 stage=0
 nj=32
 train_set=train_si284   # you might set this to e.g. train.
-test_sets="test_dev93 test_eval92"
-data_affix=test
 gmm=tri4b                # This specifies a GMM-dir from the features of the type you're training the system on;
                          # it should contain alignments for 'train_set'.
 online_cmvn_iextractor=false
@@ -113,22 +111,16 @@ if [ $stage -le 5 ]; then
   # fi
 
   utils/copy_data_dir.sh $data/train_set_sp $data/train_set_sp_hires
-  utils/copy_data_dir.sh $test_sets $data/${data_affix}_set_hires
 
   # do volume-perturbation on the training data prior to extracting hires
   # features; this helps make trained nnets more invariant to test data volume.
   utils/data/perturb_data_dir_volume.sh $data/train_set_sp_hires
 
-  # for datadir in ${train_set_sp ${test_sets}; do
+  # for datadir in ${train_set_sp}
   steps/make_mfcc.sh --nj $nj --mfcc-config conf/mfcc_hires.conf \
     --cmd "$train_cmd" $data/train_set_sp_hires
   steps/compute_cmvn_stats.sh $data/train_set_sp_hires
   utils/fix_data_dir.sh $data/train_set_sp_hires
-
-  steps/make_mfcc.sh --nj $nj --mfcc-config conf/mfcc_hires.conf \
-    --cmd "$train_cmd" $data/${data_affix}_set_hires
-  steps/compute_cmvn_stats.sh $data/${data_affix}_set_hires
-  utils/fix_data_dir.sh $data/${data_affix}_set_hires
 
 fi
 
@@ -201,15 +193,6 @@ if [ $stage -le 8 ]; then
   steps/online/nnet2/extract_ivectors_online.sh --cmd "$train_cmd" --nj $nj \
     ${temp_data_root}/train_set_sp_hires_max2 \
     $exp/nnet3${nnet3_affix}/extractor $ivectordir
-
-  # Also extract iVectors for the test data, but in this case we don't need the speed
-  # perturbation (sp).
-  # for data in ${test_sets}; do
-  nspk=$(wc -l <$data/${data_affix}_set_hires/spk2utt)
-  steps/online/nnet2/extract_ivectors_online.sh --cmd "$train_cmd" --nj "${nspk}" \
-    $data/${data_affix}_set_hires $exp/nnet3${nnet3_affix}/extractor \
-    $exp/nnet3${nnet3_affix}/ivectors_${data_affix}_set_hires
-  # done
 fi
 
 exit 0;
