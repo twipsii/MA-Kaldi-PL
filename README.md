@@ -96,7 +96,7 @@ These options are followed by the AM type that you want to train. The four GMM b
 
 ## Decoding and evaluating a new set
 
-The compilation of the WFST graph, the decoding and evaluation is done based on the AM type. There are three different files for GMM, NN and TDNN models.
+The compilation of the WFST graph, the decoding and evaluation is done based on the AM type. There are three different files for GMM, NN and TDNN models. The evaluation results can be found in the output directory defined in the arguments (e.g. `output_dir_model/eval/tri_mmi/dev` for the tri_mmi model). The scores of the best performing parameters are stored in the files `best_wer` and `best_cer`.
 
 **Decoding with GMM based models**
 
@@ -126,10 +126,10 @@ compile_decode_nnet.sh <lm> <am_output_directory> <specific_am_directory> <archi
 nohup ./compile_decode_nnet.sh \
       data/lms/normalised_80000_open_mkn5.arpa \
       output_dir_model \
-      output_dir_model/models/tri_mmi \
+      output_dir_model/models/nnet2 \
       data/splits/normalised_dev.csv \
       data/archimob_r2/chunked_wav_files \
-      output_dir_model/eval/tri_mmi/dev \
+      output_dir_model/eval/nnet2/dev \
       "norm" \
       data/lexicon/lexicon_zh_extended.txt
 ```
