@@ -14,10 +14,6 @@ The Kaldi (version 5.5) recipe egs/wsj/s5 (commit 8cc5c8b32a49f8d963702c6be681dc
 
 - `run.sh`: prepares the data given as arguments and trains the AM
 
-```
-run.sh <archimob_input_csv> <archimob_wav_files_directory> <am_output_directory> <transcription_type> <pronunciation_lexicon> (<lang_folder_from_decoded_set>)
-```
-
 **Decoding and evaluation**
 
 Based on the AM used for the decoding, a different file needs to be used.
@@ -25,18 +21,6 @@ Based on the AM used for the decoding, a different file needs to be used.
 - `compile_decode_gmm.sh`: used to decode the GMM based models (monophone, triphone, triphone LDA, triphone MMI)
 - `compile_decode_nnet.sh`: used to decode the NN based models (nnet2, nnet discriminative)
 - `uzh/decode_tdnn.sh`: used to decode the TDNN model with iVectors (tdnn)
-
-```
-compile_decode_norm_gmm.sh <lm> <am_output_directory> <specific_am_directory> <archimob_set_to_decode> <archimob_wav_files_directory> <eval_output_directory> <transcription_type> <pronunciation_lexicon>
-```
-
-```
-compile_decode_nnet.sh <lm> <am_output_directory> <specific_am_directory> <archimob_set_to_decode> <archimob_wav_files_directory> <eval_output_directory> <transcription_type> <pronunciation_lexicon>
-```
-
-```
-uzh/decode_tdnn.sh --test-set <archimob_set_to_decode> --test_affix <set_affix> --lm <lm> --lmtype <lm_affix> --model-dir <specific_am_directory> --output-dir <eval_output_directory>
-```
 
 ## Configuration files
 
@@ -77,7 +61,13 @@ uzh/decode_tdnn.sh --test-set <archimob_set_to_decode> --test_affix <set_affix> 
 
 ## Training the ASR model
 
-The following steps can be executed to train the AM:
+The script `run.sh` is used to run the AM training. The arguments it takes are structured as follow:
+
+```
+run.sh <archimob_input_csv> <archimob_wav_files_directory> <am_output_directory> <transcription_type> <pronunciation_lexicon>
+```
+
+Execute the following command to run the AM training:
 
 ```
 nohup ./run.sh \
@@ -104,7 +94,11 @@ These options are followed by the AM type that you want to train. The four GMM b
 - `do_nnet2_discriminative=1`
 - `do_train_tdnn=0`
 
-Training the TDNN model needs the lang folder of a decoded set as an additional argument to extract the iVectors from:
+Training the TDNN model needs the lang folder of a decoded set as an additional argument to extract the iVectors from.
+
+```
+run.sh <archimob_input_csv> <archimob_wav_files_directory> <am_output_directory> <transcription_type> <pronunciation_lexicon> <lang_directory_decoded_set>
+```
 
 ```
 nohup ./run.sh \
@@ -123,6 +117,10 @@ The compilation of the WFST graph, the decoding and evaluation is done based on 
 **Decoding with GMM based models**
 
 ```
+compile_decode_norm_gmm.sh <lm> <am_output_directory> <specific_am_directory> <archimob_set_to_decode> <archimob_wav_files_directory> <eval_output_directory> <transcription_type> <pronunciation_lexicon>
+```
+
+```
 nohup ./compile_decode_gmm.sh \
       data/lms/normalised_80000_open_mkn5.arpa \
       output_dir_model \
@@ -137,6 +135,10 @@ nohup ./compile_decode_gmm.sh \
 **Decoding with NN based models**
 
 ```
+compile_decode_nnet.sh <lm> <am_output_directory> <specific_am_directory> <archimob_set_to_decode> <archimob_wav_files_directory> <eval_output_directory> <transcription_type> <pronunciation_lexicon>
+```
+
+```
 nohup ./compile_decode_nnet.sh \
       data/lms/normalised_80000_open_mkn5.arpa \
       output_dir_model \
@@ -149,6 +151,10 @@ nohup ./compile_decode_nnet.sh \
 ```
 
 **Decoding with TDNN model**
+
+```
+uzh/decode_tdnn.sh --test-set <archimob_set_to_decode> --test_affix <set_affix> --lm <lm> --lmtype <lm_affix> --model-dir <specific_am_directory> --output-dir <eval_output_directory>
+```
 
 ```
 nohup uzh/decode_tdnn.sh \
