@@ -85,10 +85,10 @@ nohup ./run.sh \
       data/archimob_r2/chunked_wav_files \
       output_dir_model \
       "norm" \
-      data/lexicon/lexicon_zh_extended.txt \
+      data/lexicon/lexicon_zh_extended.txt
 ```
 
-The file `run.sh` contains a number of options that can be triggered. This includes the data preparation and the feature extraction, which both only need to be done once for a given `output_dir_model` folder. Set the following values to "1" to perform these actions:
+The file `run.sh` contains a number of options that can be controlled. This includes the data preparation and the feature extraction, which both only need to be done once for a given `output_dir_model` folder. Set the following values to "1" to perform these actions:
 
 - `do_archimob_preparation=1`
 - `do_data_preparation=1`
@@ -131,7 +131,7 @@ nohup ./compile_decode_gmm.sh \
       data/archimob_r2/chunked_wav_files \
       output_dir_model/eval/tri_mmi/dev \
       "norm" \
-      data/lexicon/lexicon_zh_extended.txt \
+      data/lexicon/lexicon_zh_extended.txt
 ```
 
 **Decoding with NN based models**
@@ -145,7 +145,7 @@ nohup ./compile_decode_nnet.sh \
       data/archimob_r2/chunked_wav_files \
       output_dir_model/eval/tri_mmi/dev \
       "norm" \
-      data/lexicon/lexicon_zh_extended.txt \
+      data/lexicon/lexicon_zh_extended.txt
 ```
 
 **Decoding with TDNN model**
