@@ -29,7 +29,7 @@ set -u
 ################
 # All these options can be changed from the command line. For example:
 # --num-jobs 16 --use-gpu true ...
-num_jobs=32  # Number of jobs for parallel processing
+num_jobs=69  # Number of jobs for parallel processing
 use_gpu=false  # either true or false
 num_senones=4000  # Number of senones for the triphone stage
 num_gaussians=40000  # Number of Gaussians for the triphone stage
@@ -48,9 +48,9 @@ do_train_monophone=1
 do_train_triphone=1
 do_train_triphone_lda=1
 do_train_mmi=1
-do_nnet2=0
-do_nnet2_discriminative=0
-do_train_tdnn=0
+do_nnet2=1
+do_nnet2_discriminative=1
+do_train_tdnn=1
 
 # This call selects the tool used for parallel computing: ($train_cmd)
 . cmd.sh
