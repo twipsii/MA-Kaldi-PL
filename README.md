@@ -96,7 +96,7 @@ These options are followed by the AM type that you want to train. The four GMM b
 
 ## Decoding and evaluating a new set
 
-The compilation of the WFST graph, the decoding and evaluation is done based on the AM type. There are three different files.
+The compilation of the WFST graph, the decoding and evaluation is done based on the AM type. There are three different files for GMM, NN and TDNN models.
 
 **Decoding with GMM based models**
 
